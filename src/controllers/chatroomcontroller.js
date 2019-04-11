@@ -17,9 +17,10 @@ module.exports = {
     })
   },
   savechats (req, res) {
+    console.log('chat data', req.body)
     const data =
-      {
-        UserName: req.body.username,
+      { 
+        UserName: req.body.username,  
         Messages: req.body.message
       }
     try {
@@ -35,5 +36,17 @@ module.exports = {
         error: 'chat was not saved'
       })
     }
+  },
+  deleteChat (req, res) {
+    console.log('delete reached')
+    ChatRoom.destroy({
+      where: {},
+      truncate: true
+    }).then(() => {
+      return res.status(200).send({
+        success: true,
+        message: 'record deleted'
+      })
+    })
   }
 }
